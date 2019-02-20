@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="355.0" prefWidth="287.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="id.pkg3.FXMLDocumentController">
+    <children>
+        <Button fx:id="button" layoutX="152.0" layoutY="149.0" onAction="#handleButtonAction" text="Calculate Entropy" />
+        <Label fx:id="label" layoutX="124.0" layoutY="161.0" minHeight="16" minWidth="69" />
+      <TextField fx:id="second" layoutX="112.0" layoutY="106.0" />
+      <TextField fx:id="first" layoutX="112.0" layoutY="64.0" />
+      <TextField fx:id="total" editable="false" layoutX="114.0" layoutY="214.0" />
+      <Label layoutX="26.0" layoutY="68.0" text="1st Class" />
+      <Label layoutX="26.0" layoutY="110.0" text="2nd Class" />
+      <Label layoutX="28.0" layoutY="218.0" text="Entropy" />
+      <TextField fx:id="rows" layoutX="112.0" layoutY="23.0" />
+      <Label layoutX="26.0" layoutY="27.0" text="total rows" />
+    </children>
+</AnchorPane>
