@@ -43,6 +43,7 @@ public class FXMLDocumentController implements Initializable {
    Double f22= f2*(Math.log10(Double.valueOf(f2))/Math.log10(2));
    Double f3=-(f11+f22);
           total.setText(f3.toString());
+          System.out.println(f3);
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
