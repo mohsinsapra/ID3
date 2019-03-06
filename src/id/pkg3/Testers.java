@@ -41,6 +41,7 @@ Model m=new Model();
            List<String> Windy;
            List<String> PlayGolf;
            Map<String, Integer> ValueFrequency;
+           double result_entropy;
            Model() 
            {
                Temperature=new ArrayList<String>();
@@ -49,6 +50,7 @@ Model m=new Model();
                Windy=new ArrayList<String>();
                PlayGolf=new ArrayList<String>();
                ValueFrequency = new HashMap<>();
+               
            }
          double entropy(int class1,double total)
     {
@@ -58,18 +60,56 @@ Model m=new Model();
 return (f1);
     
     }
-       void List_Entropy(List<String> lst )
-       {
-             List keys=new ArrayList(Frequency(lst).keySet());
+         
+         void List_Entropy(List<String> entropy_list)
+                 {
+                     
+             Map<String,Integer> Frequenci = Frequency(entropy_list);
+             List  list=new ArrayList(ValueFrequency.keySet());
+Map<String ,Integer>count;
+
+             List  lists=new ArrayList(Frequenci.keySet());
+
+            for(int k=0;k<list.size();k++){
+                count=new HashMap<>();
+                System.out.println("");
+             for (int j = 0; j < lists.size(); j++) {
+                 
+             
+             for (int i = 0; i < PlayGolf.size(); i++) {
+                   if(entropy_list.get(i).equalsIgnoreCase((String) lists.get(j))&&PlayGolf.get(i).equalsIgnoreCase((String) list.get(k)))
+                   { 
+//                       System.out.println(entropy_list.get(i));
+                       if (count.get(lists.get(j))==null) {
+                           count.put(entropy_list.get(i),1);
+                           
+                       }
+                       else{
+                           count.put(entropy_list.get(i), count.get(lists.get(j))+1);
+                       }
+                   }
+                   
+             }
+             
+             }
+             count.put(list.get(k).toString(), 0);
+             System.out.println(count);
+            }
+            
+         }
+       void List_Entropy_Result(List<String> lst )
+       {            
+           ValueFrequency=Frequency(lst);
+
+            List keys=new ArrayList(ValueFrequency.keySet());
             double entropy=0;
             for (int i = 0; i < keys.size(); i++) {
-              entropy+=  entropy((int) Frequency(lst).get(keys.get(i)), lst.size());
-                System.out.println(keys.get(i)+" "+Frequency(lst).get(keys.get(i)));
-            System.out.println(keys.get(i)+"  ===>> Entropy is "+-entropy((int) Frequency(lst).get(keys.get(i)), lst.size()));
+              entropy+=  entropy((int) ValueFrequency.get(keys.get(i)), lst.size());
+                System.out.println(keys.get(i)+" "+ValueFrequency.get(keys.get(i)));
 
             }
            
-            
+            result_entropy=-entropy;
             System.out.println("Entropy is "+-entropy);
 
        }
@@ -105,13 +145,16 @@ br.readLine();
             System.out.println(PlayGolf);
             
     
-            List_Entropy(Windy);
+            List_Entropy_Result(PlayGolf);
    
 
             System.out.println(Frequency(Temperature));
             System.out.println(Frequency(Outlook));
             System.out.println(Frequency(Humidity));
-
+            
+            List_Entropy(Outlook);
+            List_Entropy(Humidity);
+            List_Entropy(Windy);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,6 +162,7 @@ br.readLine();
            }
           Map Frequency(List<String> e)
           {
+              
                Map<String, Integer> ValueFrequency= new HashMap<>();
                   for (int i = 0; i < e.size(); i++) {
                      if (ValueFrequency.get(e.get(i))==null) {
@@ -128,7 +172,10 @@ br.readLine();
                 else{
                                     ValueFrequency.put(e.get(i), ValueFrequency.get(e.get(i))+1);
 
-                }
+                
+                     }
+                
+                 
             }
           return ValueFrequency;
           }
