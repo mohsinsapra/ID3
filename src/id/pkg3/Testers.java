@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +120,7 @@ public class Testers {
                     } else {
                         singleEntropy = -singleEntropy;
                     }
-                    entropy.put(distinct_entropylist.get(j)+"_"+distinct_yesNo.get(i),  ValueCounter.get(distinct_yesNo.get(i)) / (double)counter*singleEntropy);
+                    entropy.put(distinct_entropylist.get(j)+distinct_yesNo.get(i),  -singleEntropy);
                 }
                 singleEntropy = -((double) counter / PlayGolf.size()) * singleEntropy;
                 calculatedEntropy += singleEntropy;
@@ -128,9 +129,11 @@ public class Testers {
 //                System.out.println("Entropy of " + distinct_entropylist.get(j) + " (" + singleEntropy + ")");
 
             }
-            System.out.println("");
-            System.out.println("Information Gain is (" + (result_entropy - calculatedEntropy) + ")");
-            System.out.println("");
+          ////////////////////Information Gain is Printing///////////////
+//            System.out.println("");
+//            System.out.println("Information Gain is (" + (result_entropy - calculatedEntropy) + ")");
+//            System.out.println("");
+            /////////////////////////////
             entropy.put("IG", result_entropy-calculatedEntropy);
             return (entropy);
         }
@@ -182,34 +185,68 @@ show("Play Golf");
                 System.out.println(PlayGolf);
 
                 List_Entropy_Result(PlayGolf);
-
+show(" ");
                 System.out.println(Frequency(Temperature));
                 System.out.println(Frequency(Outlook));
                 System.out.println(Frequency(Humidity));
 
+                List<Double> IG=new ArrayList<>();
                 ////////////////////////Temperature////////////////////
-                show( columnNames[1]);
-                System.out.println("IG  is"+  List_Entropy_IG(Temperature));
+//                show( columnNames[1]);
+//                System.out.println("IG  is"+  List_Entropy_IG(Temperature));
                 ///////////////////////////////////////////////
-
+double temp=List_Entropy_IG(Temperature).get("IG"),wind=List_Entropy_IG(Windy).get("IG"),humidity=List_Entropy_IG(Humidity).get("IG"),outlook=List_Entropy_IG(Outlook).get("IG");
+                IG.add(temp);
                 ////////////////////////OUtLook////////////////////
-                show(columnNames[2]);
-                      System.out.println( List_Entropy_IG(Outlook));
+//                show(columnNames[2]);
+//                      System.out.println( List_Entropy_IG(Outlook));
                 ///////////////////////////////////////////////
+                IG.add(outlook);
 
                 ////////////////////////Humidity////////////////////
-                show(columnNames[3]);
-                       System.out.println(List_Entropy_IG(Humidity));
+//                show(columnNames[3]);
+//                       System.out.println(List_Entropy_IG(Humidity));
                 ///////////////////////////////////////////////
+                IG.add(humidity);
 
-                show( columnNames[4]);
-                       System.out.println(List_Entropy_IG(Windy));
+//                show( columnNames[4]);
+//                       System.out.println(wind);
                 ///////////////////////////////////////////////
+                IG.add(wind);
+                
+                
+             
+show(" ");
 
+                    if (Collections.max(IG)==wind) {
+                        System.out.println("Wind is Root Node");  
+                    } else
+                        if (Collections.max(IG)==humidity) {
+                                                System.out.println("Humidity is Root Node");  
+
+                                                
+                    } else
+                        if (Collections.max(IG)==outlook) {
+                                                System.out.println("Outlook is Root Node");  
+
+                                                System.out.println("\t\t( OUTLOOK)");
+                                               
+                                                System.out.println(Frequency(Outlook));
+                    } else
+                        if (Collections.max(IG)==temp) {
+                                                System.out.println("Temperature is Root Node");  
+
+                    }
+                    
+                       System.out.println("Information Gain is "+Collections.max(IG));
+                    
+                       
+              
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        
 
         void show(String xr) {
             System.out.println("-------------------------------------------");
